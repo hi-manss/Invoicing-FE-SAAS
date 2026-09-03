@@ -27,19 +27,16 @@ export const api = {
   login: (email, password) => request('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) }),
   signup: (name, email, password) => request('/auth/signup', { method: 'POST', body: JSON.stringify({ name, email, password }) }),
   logout: () => request('/auth/logout', { method: 'POST' }),
-
   products: ({ search = '', page = 1, limit = 50 } = {}) => request(`/products?${new URLSearchParams({ search, page, limit })}`),
   product: (id) => request(`/products/${id}`),
   createProduct: (body) => request('/products', { method: 'POST', body: JSON.stringify(body) }),
   updateProduct: (id, body) => request(`/products/${id}`, { method: 'PUT', body: JSON.stringify(body) }),
   deleteProduct: (id) => request(`/products/${id}`, { method: 'DELETE' }),
-
   customers: ({ search = '', page = 1, limit = 50 } = {}) => request(`/customers?${new URLSearchParams({ search, page, limit })}`),
   customer: (id) => request(`/customers/${id}`),
   createCustomer: (body) => request('/customers', { method: 'POST', body: JSON.stringify(body) }),
   updateCustomer: (id, body) => request(`/customers/${id}`, { method: 'PUT', body: JSON.stringify(body) }),
   deleteCustomer: (id) => request(`/customers/${id}`, { method: 'DELETE' }),
-
   invoices: (params = {}) => {
     const clean = Object.fromEntries(Object.entries(params).filter(([, v]) => v !== undefined && v !== null && v !== ''))
     return request(`/invoices?${new URLSearchParams(clean)}`)
@@ -57,7 +54,6 @@ export const api = {
     }
     return response.blob()
   },
-
   adjustStock: (productId, quantityChange, reason) => request('/inventory/adjust', { method: 'POST', body: JSON.stringify({ productId, quantityChange, reason }) }),
   inventoryMovements: (params = {}) => request(`/inventory/movements?${new URLSearchParams(params)}`),
 }
@@ -71,6 +67,21 @@ export function saveBlob(blob, filename) {
   anchor.click()
   anchor.remove()
   URL.revokeObjectURL(url)
+}
+
+export function money(paise) {
+  return `₹${(Number(paise || 0) / 100).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+}
+
+export function prettyDate(value) {
+  if (!value) return '—'
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return String(value)
+  return date.toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+}
+
+export function paymentMethodLabel(value) {
+  return ({ 0: 'Cash', 1: 'UPI', 2: 'Bank', 3: 'Credit', 4: 'Other' })[Number(value)] || 'Other'
 }
 
 export { API_BASE_URL }
