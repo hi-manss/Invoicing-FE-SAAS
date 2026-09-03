@@ -2,4 +2,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-:root{color-scheme:dark;--surface-0:#141417;--surface-1:#1a1a1f;--surface-2:#232329;--surface-3:#2c2c35;--text-primary:#e4e4e8;--text-secondary:#a1a1aa;--text-tertiary:#71717a;--border-color:#2c2c35;--border-light:#232329;--brand-600:#5b5bd6;font-family:'DM Sans',system-ui,sans-serif;background:var(--surface-0);color:var(--text-primary)}*{box-sizing:border-box}html,body,#root{min-height:100%;background:var(--surface-0);color:var(--text-primary)}body{margin:0;min-width:320px;-webkit-font-smoothing:antialiased}button,input,select,textarea{font:inherit}button{cursor:pointer}@layer components{.panel{@apply rounded-xl border; background:var(--surface-1);border-color:var(--border-light);box-shadow:0 8px 30px rgba(0,0,0,.12)}.input{@apply w-full rounded-lg px-3 py-2 text-sm outline-none; background:var(--surface-0);border:1px solid var(--border-color);color:var(--text-primary);transition:all .15s ease}.input::placeholder{color:var(--text-tertiary)}.input:focus{border-color:var(--brand-600);box-shadow:0 0 0 3px rgba(91,91,214,.12)}.btn{@apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition active:scale-[.98] disabled:cursor-not-allowed disabled:opacity-50}.btn-primary{@apply btn text-white; background:var(--brand-600);box-shadow:0 4px 16px rgba(91,91,214,.2)}.btn-secondary{@apply btn border; background:var(--surface-0);color:var(--text-secondary);border-color:var(--border-color)}.btn-secondary:hover{background:var(--surface-2);color:var(--text-primary)}.btn-danger{@apply btn text-white; background:#dc2626}.badge{@apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium}}::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border-color);border-radius:999px}*:focus-visible{outline:2px solid var(--brand-600);outline-offset:2px}.bg-white{background:var(--surface-0)!important}.bg-slate-50,.bg-slate-100{background:var(--surface-2)!important}.bg-slate-200{background:var(--surface-3)!important}.text-slate-900,.text-slate-800{color:var(--text-primary)!important}.text-slate-700,.text-slate-600{color:var(--text-secondary)!important}.text-slate-500,.text-slate-400{color:var(--text-tertiary)!important}.border-slate-50,.border-slate-100{border-color:var(--border-light)!important}.border-slate-200,.border-slate-300{border-color:var(--border-color)!important}
+
+:root{color-scheme:dark;--surface-0:#141417;--surface-1:#1a1a1f;--surface-2:#232329;--surface-3:#2c2c35;--text-primary:#e4e4e8;--text-secondary:#a1a1aa;--text-tertiary:#71717a;--border-color:#2c2c35;--border-light:#232329;--brand-600:#5b5bd6;font-family:'DM Sans',system-ui,sans-serif;background:var(--surface-0);color:var(--text-primary)}
+*{box-sizing:border-box}
+html,body,#root{min-height:100%;background:var(--surface-0);color:var(--text-primary)}
+body{margin:0;min-width:320px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+
+@layer components{
+.panel{@apply rounded-xl border; background:var(--surface-1);border-color:var(--border-light);box-shadow:0 8px 30px rgba(0,0,0,.12)}
+.input{@apply w-full rounded-lg px-3 py-2 text-sm outline-none; background:var(--surface-0);border:1px solid var(--border-color);color:var(--text-primary);transition:all .15s ease}
+.input::placeholder{color:var(--text-tertiary)}.input:focus{border-color:var(--brand-600);box-shadow:0 0 0 3px rgba(91,91,214,.12)}
+.btn{@apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition active:scale-[.98] disabled:cursor-not-allowed disabled:opacity-50}
+.btn-primary{@apply btn text-white; background:var(--brand-600);box-shadow:0 4px 16px rgba(91,91,214,.2)}
+.btn-secondary{@apply btn border; background:var(--surface-0);color:var(--text-secondary);border-color:var(--border-color)}
+.btn-secondary:hover{background:var(--surface-2);color:var(--text-primary)}
+.btn-danger{@apply btn text-white; background:#dc2626}.badge{@apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium}
+}
+
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border-color);border-radius:999px}
+*:focus-visible{outline:2px solid var(--brand-600);outline-offset:2px}
+
+/* Hisaabo-inspired dark surface system. Existing feature screens can keep
+   their original Tailwind utility classes while rendering inside one visual theme. */
+.bg-white{background:var(--surface-0)!important}
+.bg-slate-50{background:var(--surface-1)!important}.bg-slate-100{background:var(--surface-2)!important}.bg-slate-200{background:var(--surface-3)!important}
+.bg-brand-50{background:rgba(91,91,214,.10)!important}.bg-brand-100{background:rgba(91,91,214,.16)!important}
+.from-brand-50{--tw-gradient-from:rgba(91,91,214,.12) var(--tw-gradient-from-position);--tw-gradient-to:rgba(91,91,214,0) var(--tw-gradient-to-position)}
+.via-white{--tw-gradient-to:rgba(20,20,23,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}
+.to-slate-100{--tw-gradient-to:#141417 var(--tw-gradient-to-position)}
+.text-slate-900,.text-slate-800{color:var(--text-primary)!important}.text-slate-700,.text-slate-600{color:var(--text-secondary)!important}.text-slate-500,.text-slate-400{color:var(--text-tertiary)!important}
+.text-brand-700{color:#8b8bea!important}.text-brand-600{color:#8b8bea!important}
+.border-slate-50,.border-slate-100{border-color:var(--border-light)!important}.border-slate-200,.border-slate-300{border-color:var(--border-color)!important}
+.hover\\:bg-slate-50\\/70:hover{background:rgba(255,255,255,.035)!important}
+
+/* Tables should scroll instead of squeezing the application on phones. */
+table{max-width:100%}
+@media(max-width:1023px){
+  .panel{border-radius:14px}
+}
+@media(max-width:640px){
+  .panel{box-shadow:0 6px 22px rgba(0,0,0,.16)}
+  .btn{min-height:40px}
+  .input{min-height:42px}
+}
