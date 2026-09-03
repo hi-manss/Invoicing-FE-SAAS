@@ -22,9 +22,6 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}
 
 ::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border-color);border-radius:999px}
 *:focus-visible{outline:2px solid var(--brand-600);outline-offset:2px}
-
-/* Hisaabo-inspired dark surface system. Existing feature screens can keep
-   their original Tailwind utility classes while rendering inside one visual theme. */
 .bg-white{background:var(--surface-0)!important}
 .bg-slate-50{background:var(--surface-1)!important}.bg-slate-100{background:var(--surface-2)!important}.bg-slate-200{background:var(--surface-3)!important}
 .bg-brand-50{background:rgba(91,91,214,.10)!important}.bg-brand-100{background:rgba(91,91,214,.16)!important}
@@ -35,10 +32,20 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}
 .text-brand-700{color:#8b8bea!important}.text-brand-600{color:#8b8bea!important}
 .border-slate-50,.border-slate-100{border-color:var(--border-light)!important}.border-slate-200,.border-slate-300{border-color:var(--border-color)!important}
 .hover\:bg-slate-50\/70:hover{background:rgba(255,255,255,.035)!important}
-
-/* Profile owns account actions; remove the legacy sidebar sign-out action. */
 aside > div:last-child > button{display:none!important}
-
 table{max-width:100%}
-@media(max-width:1023px){.panel{border-radius:14px}}
-@media(max-width:640px){.panel{box-shadow:0 6px 22px rgba(0,0,0,.16)}.btn{min-height:40px}.input{min-height:42px}}
+
+/* Hisaabo-style density, hierarchy and responsive content rails. */
+.page-shell{max-width:1440px;margin:0 auto;width:100%}
+.kpi-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.data-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:16px}
+.section-title{font-family:'Outfit',sans-serif;font-size:18px;font-weight:700;color:var(--text-primary)}
+.section-subtitle{margin-top:2px;font-size:12px;color:var(--text-tertiary)}
+.status-dot{width:7px;height:7px;border-radius:999px;display:inline-block}
+.table-row-hover tbody tr{transition:background .12s ease}
+.table-row-hover tbody tr:hover{background:rgba(255,255,255,.03)}
+
+@media(max-width:1200px){.kpi-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1023px){.panel{border-radius:14px}.page-shell{padding-bottom:12px}}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.data-toolbar>*{min-width:0;flex:1 1 180px}}
+@media(max-width:640px){.panel{box-shadow:0 6px 22px rgba(0,0,0,.16)}.btn{min-height:40px}.input{min-height:42px}.kpi-grid{grid-template-columns:1fr}.data-toolbar{gap:8px}}
