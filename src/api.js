@@ -6,13 +6,11 @@ async function request(path, options = {}) {
     headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
     ...options,
   })
-
   let data = null
   const contentType = response.headers.get('content-type') || ''
   if (contentType.includes('application/json')) data = await response.json()
   else if (contentType.includes('text/')) data = await response.text()
   else data = await response.blob()
-
   if (!response.ok) {
     const message = data?.error || data?.message || `Request failed (${response.status})`
     const error = new Error(message)
@@ -55,7 +53,10 @@ export const api = {
     }
     return response.blob()
   },
-  adjustStock: (productId, quantityChange, reason) => request('/inventory/adjust', { method: 'POST', body: JSON.stringify({ productId, quantityChange, reason })),
+  adjustStock: (productId, quantityChange, reason) => request('/inventory/adjust', {
+    method: 'POST',
+    body: JSON.stringify({ productId, quantityChange, reason }),
+  }),
   inventoryMovements: (params = {}) => request(`/inventory/movements?${new URLSearchParams(params)}`),
 }
 
