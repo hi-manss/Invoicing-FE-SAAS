@@ -27,6 +27,7 @@ export const api = {
   login: (email, password) => request('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) }),
   signup: (name, email, password) => request('/auth/signup', { method: 'POST', body: JSON.stringify({ name, email, password }) }),
   logout: () => request('/auth/logout', { method: 'POST' }),
+  adminUsers: () => request('/admin/users'),
   products: ({ search = '', page = 1, limit = 50 } = {}) => request(`/products?${new URLSearchParams({ search, page, limit })}`),
   product: (id) => request(`/products/${id}`),
   createProduct: (body) => request('/products', { method: 'POST', body: JSON.stringify(body) }),
@@ -43,7 +44,7 @@ export const api = {
   },
   invoice: (id) => request(`/invoices/${id}`),
   createInvoice: (body) => request('/invoices', { method: 'POST', body: JSON.stringify(body) }),
-  deleteInvoice: (id) => request(`/invoices/${id}`, { method: 'DELETE' }),
+  deleteInvoice: (id) => request('/invoices/' + id, { method: 'DELETE' }),
   cancelInvoice: (id) => request(`/invoices/${id}/cancel`, { method: 'POST' }),
   invoicePdf: async (id) => {
     const response = await fetch(`${API_BASE_URL}/invoices/${id}/pdf`, { credentials: 'include' })
@@ -54,7 +55,7 @@ export const api = {
     }
     return response.blob()
   },
-  adjustStock: (productId, quantityChange, reason) => request('/inventory/adjust', { method: 'POST', body: JSON.stringify({ productId, quantityChange, reason }) }),
+  adjustStock: (productId, quantityChange, reason) => request('/inventory/adjust', { method: 'POST', body: JSON.stringify({ productId, quantityChange, reason })),
   inventoryMovements: (params = {}) => request(`/inventory/movements?${new URLSearchParams(params)}`),
 }
 
