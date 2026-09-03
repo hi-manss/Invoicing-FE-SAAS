@@ -26,6 +26,8 @@ export const api = {
   signup: (name, email, password) => request('/auth/signup', { method: 'POST', body: JSON.stringify({ name, email, password }) }),
   logout: () => request('/auth/logout', { method: 'POST' }),
   adminUsers: () => request('/admin/users'),
+  business: () => request('/business'),
+  saveBusiness: (body) => request('/business', { method: 'PUT', body: JSON.stringify(body) }),
   products: ({ search = '', page = 1, limit = 50 } = {}) => request(`/products?${new URLSearchParams({ search, page, limit })}`),
   product: (id) => request(`/products/${id}`),
   createProduct: (body) => request('/products', { method: 'POST', body: JSON.stringify(body) }),
