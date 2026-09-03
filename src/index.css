@@ -1,25 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root { color-scheme: dark; font-family: Inter, system-ui, sans-serif; background: #020617; color: #e2e8f0; }
-* { box-sizing: border-box; }
-html, body, #root { min-height: 100%; }
-body { margin: 0; background: #020617; color: #e2e8f0; }
-button, input, select, textarea { font: inherit; }
-button { cursor: pointer; }
-
-@layer components {
-  .panel { @apply rounded-2xl border border-slate-800 bg-slate-900 shadow-soft; }
-  .input { @apply w-full rounded-xl border border-slate-700 bg-slate-950 px-3.5 py-2.5 text-sm text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10; }
-  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition active:scale-[.98] disabled:cursor-not-allowed disabled:opacity-50; }
-  .btn-primary { @apply btn bg-brand-600 text-white shadow-lg shadow-brand-600/20 hover:bg-brand-500; }
-  .btn-secondary { @apply btn border border-slate-700 bg-slate-900 text-slate-200 hover:bg-slate-800; }
-  .btn-danger { @apply btn bg-rose-950/60 text-rose-300 hover:bg-rose-900/70; }
-  .badge { @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold; }
-}
-
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-thumb { background: #334155; border-radius: 999px; }
-::-webkit-scrollbar-track { background: transparent; }
+:root{color-scheme:dark;--surface-0:#141417;--surface-1:#1a1a1f;--surface-2:#232329;--surface-3:#2c2c35;--text-primary:#e4e4e8;--text-secondary:#a1a1aa;--text-tertiary:#71717a;--border-color:#2c2c35;--border-light:#232329;--brand-600:#5b5bd6;font-family:'DM Sans',system-ui,sans-serif;background:var(--surface-0);color:var(--text-primary)}*{box-sizing:border-box}html,body,#root{min-height:100%;background:var(--surface-0);color:var(--text-primary)}body{margin:0;min-width:320px;-webkit-font-smoothing:antialiased}button,input,select,textarea{font:inherit}button{cursor:pointer}@layer components{.panel{@apply rounded-xl border; background:var(--surface-1);border-color:var(--border-light);box-shadow:0 8px 30px rgba(0,0,0,.12)}.input{@apply w-full rounded-lg px-3 py-2 text-sm outline-none; background:var(--surface-0);border:1px solid var(--border-color);color:var(--text-primary);transition:all .15s ease}.input::placeholder{color:var(--text-tertiary)}.input:focus{border-color:var(--brand-600);box-shadow:0 0 0 3px rgba(91,91,214,.12)}.btn{@apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition active:scale-[.98] disabled:cursor-not-allowed disabled:opacity-50}.btn-primary{@apply btn text-white; background:var(--brand-600);box-shadow:0 4px 16px rgba(91,91,214,.2)}.btn-secondary{@apply btn border; background:var(--surface-0);color:var(--text-secondary);border-color:var(--border-color)}.btn-secondary:hover{background:var(--surface-2);color:var(--text-primary)}.btn-danger{@apply btn text-white; background:#dc2626}.badge{@apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium}}::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border-color);border-radius:999px}*:focus-visible{outline:2px solid var(--brand-600);outline-offset:2px}.bg-white{background:var(--surface-0)!important}.bg-slate-50,.bg-slate-100{background:var(--surface-2)!important}.bg-slate-200{background:var(--surface-3)!important}.text-slate-900,.text-slate-800{color:var(--text-primary)!important}.text-slate-700,.text-slate-600{color:var(--text-secondary)!important}.text-slate-500,.text-slate-400{color:var(--text-tertiary)!important}.border-slate-50,.border-slate-100{border-color:var(--border-light)!important}.border-slate-200,.border-slate-300{border-color:var(--border-color)!important}
