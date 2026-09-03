@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import {
   Boxes, ChevronLeft, ChevronRight, CircleUserRound, LayoutDashboard,
   LogOut, Menu, PackagePlus, Plus, ReceiptText, Search, Settings,
@@ -9,32 +10,53 @@ export function Logo() {
   return <div className="flex items-center gap-3"><div className="grid h-10 w-10 place-items-center rounded-xl bg-brand-600 text-white shadow-lg shadow-brand-600/25"><ReceiptText size={20}/></div><div><div className="font-[Outfit] text-lg font-extrabold tracking-tight text-slate-100">Invoicing</div><div className="text-[10px] font-semibold uppercase tracking-[.2em] text-slate-500">Inventory & Billing</div></div></div>
 }
 
-export function Sidebar({ active, onNavigate, page, setPage, user, onLogout, open=false, setOpen=()=>{} }) {
-  const current = active ?? page
+export function Sidebar({ active, onNavigate, page, setPage, user, onLogout, open, setOpen }) {
+  const [internalOpen, setInternalOpen] = useState(false)
+  const controlled = typeof open === 'boolean' && typeof setOpen === 'function'
+  const isOpen = controlled ? open : internalOpen
+  const close = () => controlled ? setOpen(false) : setInternalOpen(false)
   const navigate = onNavigate ?? setPage ?? (()=>{})
+  const current = active ?? page
+
+  useEffect(() => {
+    if (controlled) return
+    const toggle = () => setInternalOpen(v => !v)
+    const closeMenu = () => setInternalOpen(false)
+    window.addEventListener('toggle-sidebar', toggle)
+    window.addEventListener('close-sidebar', closeMenu)
+    return () => {
+      window.removeEventListener('toggle-sidebar', toggle)
+      window.removeEventListener('close-sidebar', closeMenu)
+    }
+  }, [controlled])
+
   const items = [
     ['dashboard','Dashboard',LayoutDashboard], ['billing','New Invoice',Plus], ['invoices','Invoices',ReceiptText],
     ['products','Inventory',Boxes], ['customers','Customers',UsersRound], ['movements','Stock History',RotateCcw]
   ]
   return <>
-    <aside className={`fixed inset-y-0 left-0 z-40 flex w-[280px] flex-col border-r border-slate-800 bg-slate-950 px-4 py-5 shadow-2xl transition-transform lg:relative lg:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}>
-      <div className="mb-7 flex items-center justify-between px-2"><Logo/><button className="rounded-lg p-2 text-slate-500 hover:bg-slate-800 lg:hidden" onClick={()=>setOpen(false)}><X size={20}/></button></div>
+    <aside className={`fixed inset-y-0 left-0 z-40 flex w-[280px] flex-col border-r border-slate-800 bg-slate-950 px-4 py-5 shadow-2xl transition-transform duration-200 lg:relative lg:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <div className="mb-7 flex items-center justify-between px-2"><Logo/><button className="rounded-lg p-2 text-slate-500 hover:bg-slate-800 lg:hidden" onClick={close}><X size={20}/></button></div>
       <div className="mb-3 px-2 text-[11px] font-bold uppercase tracking-[.18em] text-slate-500">Workspace</div>
       <nav className="space-y-1">
-        {items.map(([id,label,Icon])=><button key={id} onClick={()=>{navigate(id);setOpen(false)}} className={`flex w-full items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-semibold transition ${current===id?'bg-brand-600/15 text-brand-400':'text-slate-400 hover:bg-slate-900 hover:text-slate-100'}`}><Icon size={18}/>{label}</button>)}
+        {items.map(([id,label,Icon])=><button key={id} onClick={()=>{navigate(id);close()}} className={`flex w-full items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-semibold transition ${current===id?'bg-brand-600/15 text-brand-400':'text-slate-400 hover:bg-slate-900 hover:text-slate-100'}`}><Icon size={18}/>{label}</button>)}
       </nav>
-      {user?.role===1 && <><div className="mb-3 mt-8 px-2 text-[11px] font-bold uppercase tracking-[.18em] text-slate-500">Administration</div><button onClick={()=>{navigate('users');setOpen(false)}} className={`flex w-full items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-semibold ${current==='users'?'bg-brand-600/15 text-brand-400':'text-slate-400 hover:bg-slate-900 hover:text-slate-100'}`}><Settings size={18}/>Users</button></>}
+      {user?.role===1 && <><div className="mb-3 mt-8 px-2 text-[11px] font-bold uppercase tracking-[.18em] text-slate-500">Administration</div><button onClick={()=>{navigate('users');close()}} className={`flex w-full items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-semibold ${current==='users'?'bg-brand-600/15 text-brand-400':'text-slate-400 hover:bg-slate-900 hover:text-slate-100'}`}><Settings size={18}/>Users</button></>}
       <div className="mt-auto rounded-2xl border border-slate-800 bg-slate-900 p-3">
         <div className="flex items-center gap-3"><div className="grid h-10 w-10 place-items-center rounded-full bg-brand-500/15 font-bold text-brand-400">{user?.name?.[0]?.toUpperCase()||'U'}</div><div className="min-w-0"><div className="truncate text-sm font-bold text-slate-200">{user?.name||'User'}</div><div className="truncate text-xs text-slate-500">{user?.email}</div></div></div>
         {onLogout&&<button onClick={onLogout} className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-3 py-2 text-sm font-semibold text-rose-400 ring-1 ring-slate-800 hover:bg-rose-950/50"><LogOut size={15}/>Sign out</button>}
       </div>
     </aside>
-    {open && <div className="fixed inset-0 z-30 bg-slate-950/70 backdrop-blur-sm lg:hidden" onClick={()=>setOpen(false)}/>}
+    {isOpen && <div className="fixed inset-0 z-30 bg-slate-950/70 backdrop-blur-sm lg:hidden" onClick={close}/>}
   </>
 }
 
 export function Topbar({ title, user, onMenu }) {
-  return <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-slate-800 bg-slate-950/90 px-4 backdrop-blur md:px-6"><div className="flex items-center gap-3"><button onClick={onMenu} className="rounded-xl p-2 text-slate-400 hover:bg-slate-900 lg:hidden"><Menu size={21}/></button><div><h1 className="font-[Outfit] text-xl font-bold text-slate-100 md:text-2xl">{title}</h1><div className="text-xs text-slate-500">Manage your business in one place</div></div></div><div className="flex items-center gap-2 rounded-xl bg-slate-900 px-3 py-2 text-xs font-semibold text-slate-300 ring-1 ring-slate-800"><CircleUserRound size={16} className="text-brand-400"/>{user?.role===1?'Administrator':'User'}</div></header>
+  const toggleMenu = () => {
+    if (onMenu) onMenu()
+    else window.dispatchEvent(new Event('toggle-sidebar'))
+  }
+  return <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-slate-800 bg-slate-950/90 px-4 backdrop-blur md:px-6"><div className="flex items-center gap-3"><button onClick={toggleMenu} className="rounded-xl p-2 text-slate-400 hover:bg-slate-900 lg:hidden" aria-label="Open navigation"><Menu size={21}/></button><div><h1 className="font-[Outfit] text-xl font-bold text-slate-100 md:text-2xl">{title}</h1><div className="text-xs text-slate-500">Manage your business in one place</div></div></div><div className="flex items-center gap-2 rounded-xl bg-slate-900 px-3 py-2 text-xs font-semibold text-slate-300 ring-1 ring-slate-800"><CircleUserRound size={16} className="text-brand-400"/>{user?.role===1?'Administrator':'User'}</div></header>
 }
 
 export function StatCard({ label, value, hint, icon:Icon, tone='brand' }) {
