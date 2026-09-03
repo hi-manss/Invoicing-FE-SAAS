@@ -52,3 +52,20 @@ export function KbdShortcut({ children }) { return <kbd className="rounded borde
 export function QuickAction({ icon:Icon, title, description, onClick }) { return <button onClick={onClick} className="flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-900 p-3 text-left transition hover:border-slate-700 hover:bg-slate-800"><div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-brand-500/10 text-brand-400"><Icon size={17}/></div><div className="min-w-0"><div className="text-sm font-semibold text-slate-200">{title}</div>{description&&<div className="mt-0.5 text-xs text-slate-500">{description}</div>}</div></button> }
 export { CalendarDays, CreditCard, Download, FileText, Pencil, RotateCcw, UsersRound }
 export const TableRowAction = ActionButton
+export function ErrorNotice({ message }) {
+  if (!message) return null
+  return (
+    <div className="rounded-xl border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-300">
+      {message}
+    </div>
+  )
+}
+
+export function SuccessNotice({ message }) {
+  if (!message) return null
+  return (
+    <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300">
+      {message}
+    </div>
+  )
+}
