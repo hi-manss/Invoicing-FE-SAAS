@@ -50,22 +50,8 @@ export function ActionButton({ icon:Icon=MoreHorizontal, label, onClick, title=l
 export function DetailField({ label, value }) { return <div><div className="text-[11px] font-medium uppercase tracking-wide text-slate-500">{label}</div><div className="mt-1 text-sm text-slate-200">{value ?? '—'}</div></div> }
 export function KbdShortcut({ children }) { return <kbd className="rounded border border-slate-800 bg-slate-950 px-1.5 py-0.5 text-[10px] font-medium text-slate-500">{children}</kbd> }
 export function QuickAction({ icon:Icon, title, description, onClick }) { return <button onClick={onClick} className="flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-900 p-3 text-left transition hover:border-slate-700 hover:bg-slate-800"><div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-brand-500/10 text-brand-400"><Icon size={17}/></div><div className="min-w-0"><div className="text-sm font-semibold text-slate-200">{title}</div>{description&&<div className="mt-0.5 text-xs text-slate-500">{description}</div>}</div></button> }
+export function Pagination({ page, totalPages, onPage }) { if(totalPages<=1)return null; return <div className="flex items-center justify-between border-t border-slate-800 px-4 py-3"><div className="text-xs text-slate-500">Page <b className="text-slate-300">{page}</b> of <b className="text-slate-300">{totalPages}</b></div><div className="flex gap-2"><button className="btn-secondary px-3 py-2" disabled={page<=1} onClick={()=>onPage(page-1)}><ChevronLeft size={16}/></button><button className="btn-secondary px-3 py-2" disabled={page>=totalPages} onClick={()=>onPage(page+1)}><ChevronRight size={16}/></button></div></div> }
 export { CalendarDays, CreditCard, Download, FileText, Pencil, RotateCcw, UsersRound }
 export const TableRowAction = ActionButton
-export function ErrorNotice({ message }) {
-  if (!message) return null
-  return (
-    <div className="rounded-xl border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-300">
-      {message}
-    </div>
-  )
-}
-
-export function SuccessNotice({ message }) {
-  if (!message) return null
-  return (
-    <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300">
-      {message}
-    </div>
-  )
-}
+export function ErrorNotice({ message }) { if (!message) return null; return <div className="rounded-xl border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-300">{message}</div> }
+export function SuccessNotice({ message }) { if (!message) return null; return <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300">{message}</div> }
