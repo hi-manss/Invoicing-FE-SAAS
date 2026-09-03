@@ -34,15 +34,8 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}
 .text-slate-900,.text-slate-800{color:var(--text-primary)!important}.text-slate-700,.text-slate-600{color:var(--text-secondary)!important}.text-slate-500,.text-slate-400{color:var(--text-tertiary)!important}
 .text-brand-700{color:#8b8bea!important}.text-brand-600{color:#8b8bea!important}
 .border-slate-50,.border-slate-100{border-color:var(--border-light)!important}.border-slate-200,.border-slate-300{border-color:var(--border-color)!important}
-.hover\\:bg-slate-50\\/70:hover{background:rgba(255,255,255,.035)!important}
+.hover\:bg-slate-50\/70:hover{background:rgba(255,255,255,.035)!important}
 
-/* Tables should scroll instead of squeezing the application on phones. */
 table{max-width:100%}
-@media(max-width:1023px){
-  .panel{border-radius:14px}
-}
-@media(max-width:640px){
-  .panel{box-shadow:0 6px 22px rgba(0,0,0,.16)}
-  .btn{min-height:40px}
-  .input{min-height:42px}
-}
+@media(max-width:1023px){.panel{border-radius:14px}}
+@media(max-width:640px){.panel{box-shadow:0 6px 22px rgba(0,0,0,.16)}.btn{min-height:40px}.input{min-height:42px}}
